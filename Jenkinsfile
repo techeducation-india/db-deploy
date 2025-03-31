@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     // Assuming test.sql is in Jenkins workspace
-                    bat "docker cp test.sql %MYSQL_CONTAINER%:/testdb.sql"
+                    bat "docker cp testdb.sql %MYSQL_CONTAINER%:/testdb.sql"
                     
                     // Execute the SQL script inside the container
                     bat "docker exec -i %MYSQL_CONTAINER% mysql -uroot -p%MYSQL_ROOT_PASSWORD% %MYSQL_DATABASE% < /testdb.sql"
