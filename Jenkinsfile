@@ -11,7 +11,7 @@ pipeline {
         stage('Pull MySQL Docker Image') {
             steps {
                 script {
-                    bat 'docker pull docker pull mysql:5.7-oraclelinux7'
+                    bat 'docker pull mysql:5.7-oraclelinux7'
                 }
             }
         }
