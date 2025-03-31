@@ -11,7 +11,7 @@ pipeline {
         stage('Pull MySQL Docker Image') {
             steps {
                 script {
-                    bat 'docker pull mysql:latest'
+                    bat 'docker pull docker pull mysql:5.7-oraclelinux7'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
                         --network workshop ^
                         -e MYSQL_ROOT_PASSWORD=%MYSQL_ROOT_PASSWORD% ^
                         -e MYSQL_DATABASE=%MYSQL_DATABASE% ^
-                        -p 3306:3306 mysql:latest
+                        -p 3306:3306 mysql:5.7-oraclelinux7
                     """
                     
                     // Wait for MySQL to initialize
