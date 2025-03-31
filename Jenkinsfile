@@ -39,7 +39,7 @@ pipeline {
                     bat "docker cp testdb.sql %MYSQL_CONTAINER%:/testdb.sql"
                     
                     // Execute the SQL script inside the container
-                    bat "docker exec -i %MYSQL_CONTAINER% mysql -uroot -p%MYSQL_ROOT_PASSWORD% %MYSQL_DATABASE% < /testdb.sql"
+                    bat "docker exec -i %MYSQL_CONTAINER% mysql -uroot -p%MYSQL_ROOT_PASSWORD% %MYSQL_DATABASE% < testdb.sql"
                 }
             }
         }
