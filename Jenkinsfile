@@ -19,12 +19,12 @@ pipeline {
         stage('Run MySQL Container') {
             steps {
                 script {
-                    bat '''
-                    docker run -d --name ${MYSQL_CONTAINER} \
-                        -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
-                        -e MYSQL_DATABASE=${MYSQL_DATABASE} \
+                    bat """
+                    docker run -d --name %MYSQL_CONTAINER% ^
+                        -e MYSQL_ROOT_PASSWORD=%MYSQL_ROOT_PASSWORD% ^
+                        -e MYSQL_DATABASE=%MYSQL_DATABASE% ^
                         -p 3306:3306 mysql:latest
-                    '''
+                    """
                     
                     // Wait for MySQL to initialize
                     sleep(20)
@@ -36,10 +36,10 @@ pipeline {
             steps {
                 script {
                     // Assuming test.sql is in Jenkins workspace
-                    bat "docker cp test.sql ${MYSQL_CONTAINER}:/testdb.sql"
+                    bat "docker cp test.sql %MYSQL_CONTAINER%:/testdb.sql"
                     
                     // Execute the SQL script inside the container
-                    bat "docker exec -i ${MYSQL_CONTAINER} mysql -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /testdb.sql"
+                    bat "docker exec -i %MYSQL_CONTAINER% mysql -uroot -p%MYSQL_ROOT_PASSWORD% %MYSQL_DATABASE% < /testdb.sql"
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
     post {
         always {
             script {
-                bat "docker logs ${MYSQL_CONTAINER}"
+                bat "docker logs %MYSQL_CONTAINER%"
             }
         }
         
